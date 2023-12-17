@@ -22,11 +22,11 @@ void bubble_sort(int *array, size_t size)
 			{
 				temp = array[i];
 				array[i] = array[i + 1];
-				array[i] = temp;
+				array[i + 1] = temp;
 				sort = 0;
 			}
 		}
-		if (sort == 0)
+		if (sort == 1)
 			return;
 		j++;
 	}
