@@ -16,7 +16,7 @@ void bubble_sort(int *array, size_t size)
 	while (j < size - 1)
 	{
 		sort = 1;
-		for (i = 0; i < (size - 1 - i); i++)
+		for (i = 0; i < (size - 1 - j); i++)
 		{
 			if (array[i] > array[i + 1])
 			{
