@@ -12,21 +12,19 @@ listint_t *swap(listint_t *l1, listint_t *l2);
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current = *list, *temp;
+	listint_t *current, *temp;
 
 	if (!list || !(*list))
 		return;
 
-	while (current->next)
+	current = (*list)->next;
+	while (current)
 	{
 		temp = current;
 		current = current->next;
-		if (temp->n > temp->next->n)
-		{
-			temp = swap(temp, temp->next);
-			while (temp->n < temp->prev->n)
-				temp = swap(temp, temp->prev);
-		}
+
+		while (temp->prev && (temp->n < temp->prev->n))
+			temp = swap(temp, temp->prev);
 	}
 }
 /**
@@ -38,12 +36,15 @@ void insertion_sort_list(listint_t **list)
  */
 listint_t *swap(listint_t *l1, listint_t *l2)
 {
-	listint_t *temp = l1;
+	if (l1->prev)
+		l1->prev->next = l2;
+	if (l2->next)
+		l2->next->prev = l1;
 
 	l1->next = l2->next;
-	l1->prev = l2->prev;
-	l2->next = temp->next;
-	l2->prev = temp->prev;
+	l2->next = l1;
+	l2->prev = l1->prev;
+	l1->prev = l2;
 
 	return (l2);
 }
