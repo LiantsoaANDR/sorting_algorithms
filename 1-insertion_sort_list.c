@@ -46,7 +46,7 @@ listint_t *swap(listint_t *l1, listint_t *l2, listint_t **list)
 		l1->next->prev = l2;
 
 	l2->next = l1->next;
-	l1->next = l2->prev;
+	l1->prev = l2->prev;
 	l2->prev = l1;
 	l1->next = l2;
 
