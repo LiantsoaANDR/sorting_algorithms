@@ -24,9 +24,11 @@ void insertion_sort_list(listint_t **list)
 		current = current->next;
 
 		while (temp->prev && (temp->n < temp->prev->n))
+		{
 			temp = swap(temp, temp->prev);
-		if (!(temp->prev))
-			*list = temp;
+			if (!(temp->prev))
+				*list = temp;
+		}
 	}
 }
 /**
