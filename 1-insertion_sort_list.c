@@ -1,6 +1,6 @@
 #include "sort.h"
 
-listint_t *swap(listint_t *l1, listint_t *l2);
+listint_t *swap(listint_t *l1, listint_t *l2, listint_t **list);
 /**
  * insertion_sort_list - sorts a doubly linked list of integers in ascending
  * order using the Insertion sort algorithm
@@ -25,9 +25,8 @@ void insertion_sort_list(listint_t **list)
 
 		while (temp->prev && (temp->n < temp->prev->n))
 		{
-			temp = swap(temp, temp->prev);
-			if (!(temp->prev))
-				*list = temp;
+			temp = swap(temp, temp->prev, list);
+			print_list(*list);
 		}
 	}
 }
@@ -35,20 +34,24 @@ void insertion_sort_list(listint_t **list)
  * swap - swaps two nodes in a doubly linked list
  * @l1: the first node
  * @l2: the second node
+ * @list: the list
  *
  * Return: The place of l1, ie where l2 is
  */
-listint_t *swap(listint_t *l1, listint_t *l2)
+listint_t *swap(listint_t *l1, listint_t *l2, listint_t **list)
 {
-	if (l1->prev)
-		l1->prev->next = l2;
-	if (l2->next)
-		l2->next->prev = l1;
+	if (l2->prev)
+		l2->prev->next = l1;
+	if (l1->next)
+		l1->next->prev = l2;
 
-	l1->next = l2->next;
-	l2->next = l1;
-	l2->prev = l1->prev;
-	l1->prev = l2;
+	l2->next = l1->next;
+	l1->next = l2->prev;
+	l2->prev = l1;
+	l1->next = l2;
 
-	return (l2);
+	if (!(l1->prev))
+		*list = l1;
+
+	return (l1);
 }
